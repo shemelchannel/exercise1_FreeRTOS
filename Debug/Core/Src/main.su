@@ -8,8 +8,10 @@ D:/7_semestr/CUiMP/exercise1_FreeRTOS/app/app.c:129:6:delay	24	static
 D:/7_semestr/CUiMP/exercise1_FreeRTOS/app/app.c:136:10:convert	40	static
 D:/7_semestr/CUiMP/exercise1_FreeRTOS/app/app.c:149:6:on_led	16	static
 D:/7_semestr/CUiMP/exercise1_FreeRTOS/app/app.c:179:6:off_led	16	static
-../Core/Src/main.c:65:5:main	8	static
-../Core/Src/main.c:138:6:SystemClock_Config	72	static
-../Core/Src/main.c:178:13:MX_GPIO_Init	40	static
-../Core/Src/main.c:264:6:HAL_GPIO_EXTI_Callback	16	static
-../Core/Src/main.c:278:6:Error_Handler	4	static,ignoring_inline_asm
+../Core/Src/main.c:69:5:main	56	static
+../Core/Src/main.c:171:6:SystemClock_Config	72	static
+../Core/Src/main.c:211:13:MX_GPIO_Init	40	static
+../Core/Src/main.c:293:6:HAL_GPIO_EXTI_Callback	16	static
+../Core/Src/main.c:305:6:NewTask1	24	static
+../Core/Src/main.c:323:6:StartDefaultTask	16	static
+../Core/Src/main.c:340:6:Error_Handler	4	static,ignoring_inline_asm

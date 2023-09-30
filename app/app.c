@@ -85,7 +85,7 @@ static void run_proc (state_t **current_state)
 	while (h->ButtonState == 1)
 	{
 		on_led(led_state);
-		HAL_Delay(1 / f);
+		HAL_Delay((int32_t)(1 / f));
 		//delay(1 / f);
 		if (h->ButtonState == 0)
 		{
