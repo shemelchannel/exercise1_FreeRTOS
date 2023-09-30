@@ -1,6 +1,5 @@
 D:/7_semestr/CUiMP/exercise1_FreeRTOS/app/app.c:29:6:APP_init	1
 D:/7_semestr/CUiMP/exercise1_FreeRTOS/app/app.c:52:6:APP_start	1
-<<<<<<< HEAD
 D:/7_semestr/CUiMP/exercise1_FreeRTOS/app/app.c:56:13:set_freq_proc	4
 D:/7_semestr/CUiMP/exercise1_FreeRTOS/app/app.c:81:13:run_proc	6
 D:/7_semestr/CUiMP/exercise1_FreeRTOS/app/app.c:113:6:stop_run_proc	2
@@ -9,24 +8,8 @@ D:/7_semestr/CUiMP/exercise1_FreeRTOS/app/app.c:129:6:delay	2
 D:/7_semestr/CUiMP/exercise1_FreeRTOS/app/app.c:136:10:convert	2
 D:/7_semestr/CUiMP/exercise1_FreeRTOS/app/app.c:149:6:on_led	9
 D:/7_semestr/CUiMP/exercise1_FreeRTOS/app/app.c:179:6:off_led	9
-../Core/Src/main.c:69:5:main	1
-../Core/Src/main.c:171:6:SystemClock_Config	3
-../Core/Src/main.c:211:13:MX_GPIO_Init	1
-../Core/Src/main.c:293:6:HAL_GPIO_EXTI_Callback	2
-../Core/Src/main.c:305:6:NewTask1	1
-../Core/Src/main.c:323:6:StartDefaultTask	1
-../Core/Src/main.c:340:6:Error_Handler	1
-=======
-D:/7_semestr/CUiMP/exercise1_FreeRTOS/app/app.c:56:13:set_freq_proc	3
-D:/7_semestr/CUiMP/exercise1_FreeRTOS/app/app.c:72:13:run_proc	6
-D:/7_semestr/CUiMP/exercise1_FreeRTOS/app/app.c:103:6:stop_run_proc	2
-D:/7_semestr/CUiMP/exercise1_FreeRTOS/app/app.c:110:6:reset_proc	2
-D:/7_semestr/CUiMP/exercise1_FreeRTOS/app/app.c:119:10:convert	2
-D:/7_semestr/CUiMP/exercise1_FreeRTOS/app/app.c:132:6:on_led	9
-D:/7_semestr/CUiMP/exercise1_FreeRTOS/app/app.c:162:6:off_led	9
 ../Core/Src/main.c:65:5:main	1
 ../Core/Src/main.c:138:6:SystemClock_Config	3
 ../Core/Src/main.c:178:13:MX_GPIO_Init	1
 ../Core/Src/main.c:264:6:HAL_GPIO_EXTI_Callback	2
 ../Core/Src/main.c:278:6:Error_Handler	1
->>>>>>> main
