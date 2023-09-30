@@ -54,27 +54,18 @@ void APP_start(void) {
 }
 
 static void set_freq_proc(state_t **current_state){
-	uint32_t c = 0;
-	uint32_t k = 0;
-	uint32_t s = 1;
-	uint32_t d;
+	uint32_t bin_num = 0;
 	uint32_t CODE[6];
-	float f0 = 0.000001;
+	float f0 = 0.001;
 
 	for (uint8_t i = 0; i < 6; i++)
+	{
 		CODE[i] = HAL_GPIO_ReadPin(h->ToggleBuf[i].Port, h->ToggleBuf[i].Pin);
-	while (k <= 5)
-		{
-			k++;
-			s *= 10;
-			c += CODE[k] * s;
-		}
-	d = convert(c);
-	f = f0 * (1 + d);
-	k = 0;
-	s = 1;
-	c = 0;
-	if (h->ButtonState == 1)
+		bin_num += CODE[i] * pow(10, i);
+	}
+	f = f0 * (1 + convert(bin_num));
+	bin_num = 0;
+	if (h->ButtonState == 0)
 		*current_state = current_state[0]->next;
 }
 
@@ -82,12 +73,11 @@ static void run_proc (state_t **current_state)
 {
 	uint8_t flag = 0;
 
-	while (h->ButtonState == 1)
+	while (h->ButtonState == 0)
 	{
 		on_led(led_state);
 		HAL_Delay(1 / f);
-		//delay(1 / f);
-		if (h->ButtonState == 0)
+		if (h->ButtonState == 1)
 		{
 			*current_state = current_state[0]->next;
 		}
@@ -112,7 +102,7 @@ static void run_proc (state_t **current_state)
 
 void stop_run_proc (state_t **current_state)
 {
-	if (h->ButtonState == 1) {
+	if (h->ButtonState == 0) {
 		*current_state = current_state[0]->next;
 	}
 }
@@ -121,15 +111,8 @@ void reset_proc (state_t **current_state)
 {
 	led_state = 0;
 	off_led(led_state);
-	if (h->ButtonState == 0) {
+	if (h->ButtonState == 1) {
 		*current_state = current_state[0]->next;
-	}
-}
-
-void delay (uint32_t ticks)
-{
-	for (uint32_t i = 0; i < ticks; i++)
-	{
 	}
 }
 
