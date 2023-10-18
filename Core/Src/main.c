@@ -109,9 +109,9 @@ int main(void)
 //  app_handle.LEDsForBlink[6].Pin  = GPIO_PIN_12;
 //  app_handle.LEDsForBlink[7].Port = GPIOA;
 //  app_handle.LEDsForBlink[7].Pin  = GPIO_PIN_6;
-
+	handle_uart.huart = &huart2;
   //APP_init(&app_handle);
-  task_create_uart_tx(&handle_uart);
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -170,11 +170,11 @@ int main(void)
 
   /* Start scheduler */
   //osKernelStart();
-  vTaskStartScheduler();
 
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  task_create_uart_tx(&handle_uart);
   while (1)
   {
     /* USER CODE END WHILE */

@@ -24,4 +24,6 @@ void task_create_uart_tx(handler_uart_t *handle) {
 	h->xQueue_tx = xQueueCreate( 10, sizeof( uint8_t ) );
 	h->xQueue_rx = xQueueCreate( 10, sizeof( uint8_t ) );
 	xTaskCreate( uart_tx_task, "NAME", 256, &handle, 1, &xHandle);
+
+	vTaskStartScheduler();
 }
