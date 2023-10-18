@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 "./Core/Src/freertos.o"
+=======
+"./Core/Src/app.o"
+>>>>>>> change_app
 "./Core/Src/main.o"
 "./Core/Src/stm32f1xx_hal_msp.o"
 "./Core/Src/stm32f1xx_hal_timebase_tim.o"

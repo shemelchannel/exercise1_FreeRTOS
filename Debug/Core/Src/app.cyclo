@@ -1,0 +1,9 @@
+../Core/Src/app.c:31:6:APP_init	1
+../Core/Src/app.c:54:6:APP_start	1
+../Core/Src/app.c:58:13:set_freq_proc	3
+../Core/Src/app.c:74:13:run_proc	6
+../Core/Src/app.c:105:6:stop_run_proc	2
+../Core/Src/app.c:112:6:reset_proc	2
+../Core/Src/app.c:121:10:convert	2
+../Core/Src/app.c:134:6:on_led	9
+../Core/Src/app.c:164:6:off_led	9

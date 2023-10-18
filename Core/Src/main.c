@@ -24,6 +24,10 @@
 /* USER CODE BEGIN Includes */
 #include "uart_echo_freertos.h"
 #include "app.h"
+<<<<<<< HEAD
+=======
+
+>>>>>>> change_app
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/

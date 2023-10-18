@@ -1,3 +1,5 @@
+#include "main.h"
+
 typedef struct GPIO_APP_s {
 	GPIO_TypeDef *Port;
 	uint16_t     Pin;
