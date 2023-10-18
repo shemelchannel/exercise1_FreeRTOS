@@ -18,12 +18,14 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "cmsis_os.h"
+//#include "cmsis_os.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "app.h"
-
+#include "uart_echo_freertos.h"
+#include "FreeRTOS.h"
+#include "task.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -45,12 +47,12 @@
 UART_HandleTypeDef huart2;
 
 /* Definitions for defaultTask */
-osThreadId_t defaultTaskHandle;
-const osThreadAttr_t defaultTask_attributes = {
-  .name = "defaultTask",
-  .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityNormal,
-};
+//osThreadId_t defaultTaskHandle;
+//const osThreadAttr_t defaultTask_attributes = {
+//  .name = "defaultTask",
+//  .stack_size = 128 * 4,
+//  .priority = (osPriority_t) osPriorityNormal,
+//};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -59,7 +61,7 @@ const osThreadAttr_t defaultTask_attributes = {
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
-void StartDefaultTask(void *argument);
+//void StartDefaultTask(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -68,6 +70,7 @@ void StartDefaultTask(void *argument);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 APP_handle_t app_handle;
+handler_uart_t handle_uart;
 /* USER CODE END 0 */
 
 /**
@@ -77,37 +80,38 @@ APP_handle_t app_handle;
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-  app_handle.ToggleBuf[0].Port 	= GPIOA;
-  app_handle.ToggleBuf[0].Pin  	= GPIO_PIN_4;
-  app_handle.ToggleBuf[1].Port 	= GPIOB;
-  app_handle.ToggleBuf[1].Pin  	= GPIO_PIN_0;
-  app_handle.ToggleBuf[2].Port 	= GPIOB;
-  app_handle.ToggleBuf[2].Pin  	= GPIO_PIN_11;
-  app_handle.ToggleBuf[3].Port 	= GPIOC;
-  app_handle.ToggleBuf[3].Pin  	= GPIO_PIN_7;
-  app_handle.ToggleBuf[4].Port 	= GPIOA;
-  app_handle.ToggleBuf[4].Pin  	= GPIO_PIN_9;
-  app_handle.ToggleBuf[5].Port 	= GPIOB;
-  app_handle.ToggleBuf[5].Pin 	= GPIO_PIN_2;
-
-  app_handle.LEDsForBlink[0].Port = GPIOB;
-  app_handle.LEDsForBlink[0].Pin  = GPIO_PIN_8;
-  app_handle.LEDsForBlink[1].Port = GPIOC;
-  app_handle.LEDsForBlink[1].Pin  = GPIO_PIN_6;
-  app_handle.LEDsForBlink[2].Port = GPIOC;
-  app_handle.LEDsForBlink[2].Pin  = GPIO_PIN_9;
-  app_handle.LEDsForBlink[3].Port = GPIOC;
-  app_handle.LEDsForBlink[3].Pin  = GPIO_PIN_8;
-  app_handle.LEDsForBlink[4].Port = GPIOC;
-  app_handle.LEDsForBlink[4].Pin  = GPIO_PIN_5;
-  app_handle.LEDsForBlink[5].Port = GPIOB;
-  app_handle.LEDsForBlink[5].Pin  = GPIO_PIN_9;
-  app_handle.LEDsForBlink[6].Port = GPIOA;
-  app_handle.LEDsForBlink[6].Pin  = GPIO_PIN_12;
-  app_handle.LEDsForBlink[7].Port = GPIOA;
-  app_handle.LEDsForBlink[7].Pin  = GPIO_PIN_6;
+//  app_handle.ToggleBuf[0].Port 	= GPIOA;
+//  app_handle.ToggleBuf[0].Pin  	= GPIO_PIN_4;
+//  app_handle.ToggleBuf[1].Port 	= GPIOB;
+//  app_handle.ToggleBuf[1].Pin  	= GPIO_PIN_0;
+//  app_handle.ToggleBuf[2].Port 	= GPIOB;
+//  app_handle.ToggleBuf[2].Pin  	= GPIO_PIN_11;
+//  app_handle.ToggleBuf[3].Port 	= GPIOC;
+//  app_handle.ToggleBuf[3].Pin  	= GPIO_PIN_7;
+//  app_handle.ToggleBuf[4].Port 	= GPIOA;
+//  app_handle.ToggleBuf[4].Pin  	= GPIO_PIN_9;
+//  app_handle.ToggleBuf[5].Port 	= GPIOB;
+//  app_handle.ToggleBuf[5].Pin 	= GPIO_PIN_2;
+//
+//  app_handle.LEDsForBlink[0].Port = GPIOB;
+//  app_handle.LEDsForBlink[0].Pin  = GPIO_PIN_8;
+//  app_handle.LEDsForBlink[1].Port = GPIOC;
+//  app_handle.LEDsForBlink[1].Pin  = GPIO_PIN_6;
+//  app_handle.LEDsForBlink[2].Port = GPIOC;
+//  app_handle.LEDsForBlink[2].Pin  = GPIO_PIN_9;
+//  app_handle.LEDsForBlink[3].Port = GPIOC;
+//  app_handle.LEDsForBlink[3].Pin  = GPIO_PIN_8;
+//  app_handle.LEDsForBlink[4].Port = GPIOC;
+//  app_handle.LEDsForBlink[4].Pin  = GPIO_PIN_5;
+//  app_handle.LEDsForBlink[5].Port = GPIOB;
+//  app_handle.LEDsForBlink[5].Pin  = GPIO_PIN_9;
+//  app_handle.LEDsForBlink[6].Port = GPIOA;
+//  app_handle.LEDsForBlink[6].Pin  = GPIO_PIN_12;
+//  app_handle.LEDsForBlink[7].Port = GPIOA;
+//  app_handle.LEDsForBlink[7].Pin  = GPIO_PIN_6;
 
   //APP_init(&app_handle);
+  task_create_uart_tx(&handle_uart);
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -134,7 +138,7 @@ int main(void)
   /* USER CODE END 2 */
 
   /* Init scheduler */
-  osKernelInitialize();
+  //osKernelInitialize();
 
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
@@ -154,7 +158,7 @@ int main(void)
 
   /* Create the thread(s) */
   /* creation of defaultTask */
-  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+//  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -165,7 +169,8 @@ int main(void)
   /* USER CODE END RTOS_EVENTS */
 
   /* Start scheduler */
-  osKernelStart();
+  //osKernelStart();
+  vTaskStartScheduler();
 
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
@@ -349,17 +354,17 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   * @retval None
   */
 /* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void *argument)
-{
-  /* USER CODE BEGIN 5 */
-  /* Infinite loop */
-  for(;;)
-  {
-	HAL_UART_Transmit(&huart2, (uint8_t*)"Hello world\n", 13, 1000);
-    osDelay(1);
-  }
-  /* USER CODE END 5 */
-}
+//void StartDefaultTask(void *argument)
+//{
+//  /* USER CODE BEGIN 5 */
+//  /* Infinite loop */
+//  for(;;)
+//  {
+//	//HAL_UART_Transmit(&huart2, (uint8_t*)"Hello world\n", 13, 1000);
+//    //osDelay(1);
+//  }
+//  /* USER CODE END 5 */
+//}
 
 /**
   * @brief  Period elapsed callback in non blocking mode

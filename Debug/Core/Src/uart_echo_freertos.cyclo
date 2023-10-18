@@ -1,0 +1,2 @@
+../Core/Src/uart_echo_freertos.c:8:6:uart_tx_task	1
+../Core/Src/uart_echo_freertos.c:19:6:task_create_uart_tx	1
