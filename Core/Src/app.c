@@ -1,4 +1,6 @@
 #include "math.h"
+#include "app.h"
+#include "main.h"
 
 typedef struct state_s
 {
