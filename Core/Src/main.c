@@ -18,11 +18,9 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-//#include "cmsis_os.h"
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "app.h"
+//#include "app.h"
 #include "uart_echo_freertos.h"
 #include "FreeRTOS.h"
 #include "task.h"
@@ -47,12 +45,7 @@
 UART_HandleTypeDef huart2;
 
 /* Definitions for defaultTask */
-//osThreadId_t defaultTaskHandle;
-//const osThreadAttr_t defaultTask_attributes = {
-//  .name = "defaultTask",
-//  .stack_size = 128 * 4,
-//  .priority = (osPriority_t) osPriorityNormal,
-//};
+
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -61,7 +54,6 @@ UART_HandleTypeDef huart2;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
-//void StartDefaultTask(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -69,7 +61,7 @@ static void MX_USART2_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-APP_handle_t app_handle;
+//APP_handle_t app_handle;
 handler_uart_t handle_uart;
 /* USER CODE END 0 */
 
@@ -110,6 +102,7 @@ int main(void)
 //  app_handle.LEDsForBlink[7].Port = GPIOA;
 //  app_handle.LEDsForBlink[7].Pin  = GPIO_PIN_6;
 	handle_uart.huart = &huart2;
+	handle_uart.task_stack_size = 128;
   //APP_init(&app_handle);
 
   /* USER CODE END 1 */
@@ -138,7 +131,7 @@ int main(void)
   /* USER CODE END 2 */
 
   /* Init scheduler */
-  //osKernelInitialize();
+
 
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
@@ -158,7 +151,7 @@ int main(void)
 
   /* Create the thread(s) */
   /* creation of defaultTask */
-//  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -169,12 +162,14 @@ int main(void)
   /* USER CODE END RTOS_EVENTS */
 
   /* Start scheduler */
-  //osKernelStart();
+
 
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  task_create_uart_tx(&handle_uart);
+
+  task_create(&handle_uart);
+
   while (1)
   {
     /* USER CODE END WHILE */
@@ -337,14 +332,14 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{
-  if(app_handle.ButtonState == 0) {
-	  app_handle.ButtonState = 1;
-  } else {
-	  app_handle.ButtonState = 0;
-  }
-}
+//void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+//{
+//  if(app_handle.ButtonState == 0) {
+//	  app_handle.ButtonState = 1;
+//  } else {
+//	  app_handle.ButtonState = 0;
+//  }
+//}
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -354,17 +349,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   * @retval None
   */
 /* USER CODE END Header_StartDefaultTask */
-//void StartDefaultTask(void *argument)
-//{
-//  /* USER CODE BEGIN 5 */
-//  /* Infinite loop */
-//  for(;;)
-//  {
-//	//HAL_UART_Transmit(&huart2, (uint8_t*)"Hello world\n", 13, 1000);
-//    //osDelay(1);
-//  }
-//  /* USER CODE END 5 */
-//}
 
 /**
   * @brief  Period elapsed callback in non blocking mode
